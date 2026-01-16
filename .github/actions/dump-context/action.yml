@@ -1,0 +1,34 @@
+name: 'Dump GitHub Context'
+description: 'Dumps all GitHub Actions context variables to the console'
+runs:
+  using: 'composite'
+  steps:
+    - name: Dump GitHub context
+      shell: bash
+      run: |
+        echo "=== GitHub Context ==="
+        echo "${{ toJSON(github) }}"
+        echo ""
+        echo "=== Job Context ==="
+        echo "${{ toJSON(job) }}"
+        echo ""
+        echo "=== Steps Context ==="
+        echo "${{ toJSON(steps) }}"
+        echo ""
+        echo "=== Runner Context ==="
+        echo "${{ toJSON(runner) }}"
+        echo ""
+        echo "=== Strategy Context ==="
+        echo "${{ toJSON(strategy) }}"
+        echo ""
+        echo "=== Matrix Context ==="
+        echo "${{ toJSON(matrix) }}"
+        echo ""
+        echo "=== Needs Context ==="
+        echo "${{ toJSON(needs) }}"
+        echo ""
+        echo "=== Inputs Context ==="
+        echo "${{ toJSON(inputs) }}"
+        echo ""
+        echo "=== Env Context ==="
+        echo "${{ toJSON(env) }}"
