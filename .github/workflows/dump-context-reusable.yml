@@ -11,4 +11,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Dump context using composite action
-        uses: ./.github/actions/dump-context@main
+        uses: LukeCarrier/test/.github/actions/dump-context@main
