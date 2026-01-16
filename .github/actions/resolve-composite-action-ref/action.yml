@@ -1,0 +1,28 @@
+name: Resolve composite action's git ref
+description: >
+  Resolve a composite action's resolved git ref based on the available GitHub context.
+  Necessary because GitHub doesn't pass it to us in any usable form (see dump-context).
+outputs:
+  ref:
+    description: The resolved git ref of the composite action.
+    value: ${{ steps.resolve.outputs.ref }}
+runs:
+  using: composite
+  steps:
+    - name: Resolve action's ref
+      id: resolve
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        set -eux -o pipefail
+
+        # Look for the path segments _actions/:org/:repo/:ref/
+        if [[ "$GITHUB_ACTION_PATH" =~ _actions/[^/]+/[^/]+/([^/]+)/ ]]; then
+          ref="${BASH_REMATCH[1]}"
+        else
+          echo "Unable to resolve action's ref" >&2
+          exit 1
+        fi
+
+        printf "ref=%s\n" "$ref" >>"$GITHUB_OUTPUT"
