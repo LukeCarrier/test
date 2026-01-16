@@ -9,6 +9,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Dump context using composite action
-        uses: ./.github/actions/dump-context
+        uses: ./.github/actions/dump-context@main
